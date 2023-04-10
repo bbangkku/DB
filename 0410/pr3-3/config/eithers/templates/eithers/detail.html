@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>DETAIL PAGE</h1>
+<hr>
+<h2>{{question.title}}</h2>
+<b>RED TEAM</b>
+<p>=> {{question.issue_a}}</p>
+
+<b>BLUE TEAM</b>
+<p>=> {{question.issue_b}}</p>
+<hr>
+
+<h2>댓글 작성</h2>
+<form action="{% url 'eithers:comment' question.pk %}" method="POST">
+  {% csrf_token %}
+  {{comment_form.as_p}}
+  <input type="submit" value="작성">
+
+<hr>
+<h2>댓글 목록</h2>
+{% for comment in comments  %}
+<p>
+  {% if comment.pick is False %}
+    RED -
+  {% else %}
+    BLUE -
+  {% endif %}
+  {{comment.content}}
+</p>
+
+{%empty%}
+  <p>작성된 댓글이 없습니다.</p>
+
+{% endfor %}
+
+</form>
+
+
+
+{% endblock content %}
