@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>#{{hashtag.content}}</h1>
+<p>{{articles|length}} 개의 게시글</p>
+<hr>
+
+{% for article in articles  %}
+    <h3>{{ article.pk }} 번 게시글</h3>
+    <h4>{{ article.title }}</h4>
+    <p>{{ article.comment_set.count }}개의 댓글</p>
+    <a href="{% url 'articles:detail' article.pk %}">상세 페이지로 돌아가기</a>
+{%empty%}
+    <p>태그한 게시글이 없습니다.</p>
+{% endfor %}
+
+
+
+{% endblock content %}

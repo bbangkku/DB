@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ user }} 님의 프로필 페이지</h1>
+<hr>
+<h2>{{user}} 님이 작성한 게시글</h2>
+{% for article in articles  %}
+<p>{{article.pk}} : 
+    <a href="{% url 'articles:detail' article.pk %}">
+    {{article.title}}</a></p>
+{%empty%}
+<p>아직 작성한 게시글이 없습니다.</p>
+
+{% endfor %}
+<hr>
+<h2>{{user}} 님이 좋아요한 게시글</h2>
+{% for article in like_articles  %}
+<p>{{article.pk}} :
+    <a href="{% url 'articles:detail' article.pk %}">
+    {{article.title}}</a></p>
+{%empty%}
+<p>아직 좋아요한 게시글이 없습니다.</p>
+
+{% endfor %}
+
+<a href="{% url 'articles:index' %}"></a>
+
+{% endblock content %}
